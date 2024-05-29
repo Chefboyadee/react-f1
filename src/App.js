@@ -6,7 +6,7 @@ export default function App() {
    <>
     <h1> F1 App </h1>
     {/* <DriverApi/> */}
-    <SessionKey/>
+    {/* <SessionKey/> */}
    </>
   );
 }

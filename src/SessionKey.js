@@ -26,11 +26,22 @@ function ApiSession(){
 function Form({apiResponse}){
 
     const [sessionKey, setSessionKey] = useState([]);
+
     const [userInput, setUserInput] = useState({
         country:'',
         year: '',
         sessionName: ''
     });
+
+    const sessionOptions = [
+        'Practice 1',
+        'Practice 2',
+        'Practice 3',
+        'Sprint Shootout',
+        'Sprint',
+        'Qualifying',
+        'Race'
+      ];
 
     const handleInputChange = (e) => {
         setUserInput({
@@ -40,7 +51,7 @@ function Form({apiResponse}){
     };
 
     const handleSubmit = (e) => {
-        
+
         e.preventDefault();
         const { country, year, sessionName } = userInput;
       
@@ -51,9 +62,9 @@ function Form({apiResponse}){
               session.year === parseInt(year) &&
               session.session_name.toLowerCase() === sessionName.toLowerCase();
       
-            console.log(
-              `Checking session: ${session.session_name}, Match Condition: ${matchCondition}`
-            );
+            // console.log(
+            //   `Checking session: ${session.session_name}, Match Condition: ${matchCondition}`
+            // );
       
             return matchCondition;
           });
@@ -69,47 +80,67 @@ function Form({apiResponse}){
       };
 
     return (
-        <div>
-          <h2>Find Session Key</h2>
-          <form onSubmit={handleSubmit}>
+    <div className="flex justify-center items-center h-screen">
+        <div className="bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6">Please enter a country, year and session type!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="country">Country:</label>
-              <input
+            <label htmlFor="country" className="block font-medium">
+                Country:
+            </label>
+            <input
                 type="text"
                 id="country"
                 name="country"
                 placeholder="Enter country"
                 value={userInput.country}
                 onChange={handleInputChange}
-              />
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
             </div>
             <div>
-              <label htmlFor="year">Year:</label>
-              <input
+            <label htmlFor="year" className="block font-medium">
+                Year:
+            </label>
+            <input
                 type="text"
                 id="year"
                 name="year"
                 placeholder="Enter year"
                 value={userInput.year}
                 onChange={handleInputChange}
-              />
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
             </div>
             <div>
-              <label htmlFor="sessionName">Session Name:</label>
-              <input
-                type="text"
+            <label htmlFor="sessionName" className="block font-medium">
+                Session Name:
+            </label>
+            <select
                 id="sessionName"
                 name="sessionName"
-                placeholder="Enter session name"
                 value={userInput.sessionName}
                 onChange={handleInputChange}
-              />
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                <option value="">Select a session</option>
+                {sessionOptions.map((option, index) => (
+                <option key={index} value={option}>
+                    {option}
+                </option>
+                ))}
+            </select>
             </div>
-            <button type="submit">Find Session Key</button>
-          </form>
-          {sessionKey && <p>Matched Session Key: {sessionKey}</p>}
+            <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            >
+            Enter
+            </button>
+        </form>
         </div>
-      );
+    </div>
+    );
 }
 
 export default function SessionKey(){
