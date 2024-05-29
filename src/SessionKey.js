@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function ApiSession(){
+function ApiSession( {onSessionKeyReceived} ){
 
     const [apiResponse, setApiResponse] = useState([]);
 
@@ -17,13 +17,13 @@ function ApiSession(){
 
     return(
         <>
-             <Form apiResponse={apiResponse}/>
+             <Form apiResponse={apiResponse} onSessionKeyReceived={onSessionKeyReceived}/>
         </>
     )
    
 }
 
-function Form({apiResponse}){
+function Form({apiResponse, onSessionKeyReceived}){
 
     const [sessionKey, setSessionKey] = useState([]);
 
@@ -71,6 +71,7 @@ function Form({apiResponse}){
       
           if (matchedSession) {
             setSessionKey(matchedSession.session_key);
+            onSessionKeyReceived(matchedSession.session_key);
           } else {
             console.log('No matching session found');
           }
@@ -143,11 +144,11 @@ function Form({apiResponse}){
     );
 }
 
-export default function SessionKey(){
+export default function SessionKey( {onSessionKeyReceived} ){
    
     return(
         <>
-            <ApiSession/>
+            <ApiSession onSessionKeyReceived={onSessionKeyReceived}/>
         </>
     )
 }
