@@ -69,7 +69,6 @@ function ApiRadio({ radioSessionKey }) {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Radio Messages</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {radios.map((radio, index) => (
           <RadioMessage key={`${radio.session_key}-${radio.meeting_key}-${radio.driver_number}-${index}`} radio={radio} index={index} />
@@ -87,17 +86,20 @@ export default function RadioCalls() {
     country: '',
     year: '',
     sessionName: '',
+    driverName: '',
+    driverNumber: ''
   });
 
   return (
     <>
+    <h1 className='mt-24 -mb-24' > Formula One - Teams' Radio Messages </h1>
     <div className="container mx-auto px-4 py-8">
       <GetSessionKey onSessionKeyReceived={setRadioSessionKey} getUserInfo={setUserInfo} />
 
       <h1 className="text-3xl font-bold text-center mb-8">
         Showing radio messages for the {userInfo.sessionName} session in {userInfo.country} for the weekend's {userInfo.location} Grand Prix in the season {userInfo.year}!
       </h1>
-
+      
       <ApiRadio radioSessionKey={radioSessionKey} />
     </div>
     </>

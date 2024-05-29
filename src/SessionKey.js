@@ -31,7 +31,9 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
         location:'',
         country:'',
         year: '',
-        sessionName: ''
+        sessionName: '',
+        driverName: '',
+        driverNumber: ''
     });
 
     const sessionOptions = [
@@ -59,10 +61,10 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
         if (apiResponse && Array.isArray(apiResponse)) {
           const matchedSession = apiResponse.find(session => {
             const matchCondition =
-              session.location.toLowerCase() === location.toLowerCase() &&
-              session.country_name.toLowerCase() === country.toLowerCase() &&
-              session.year === parseInt(year) &&
-              session.session_name.toLowerCase() === sessionName.toLowerCase();
+            (!location || session.location.toLowerCase() === location.toLowerCase()) &&
+            session.country_name.toLowerCase() === country.toLowerCase() &&
+            session.year === parseInt(year) &&
+            session.session_name.toLowerCase() === sessionName.toLowerCase();
       
             // console.log(
             //   `Checking session: ${session.session_name}, Match Condition: ${matchCondition}`
@@ -85,9 +87,59 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
 
       return (
         <div className="flex justify-center items-center h-screen">
-          <div className="bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-6">Please enter a location, country, year and session type!</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+            <h2 className="text-2xl font-bold mb-6">Please enter the required details</h2>
+            <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
+              <div>
+                <label htmlFor="country" className="block font-medium">
+                  Country: <span className="text-red-500">*</span>
+                </label>
+                <input
+                  required
+                  type="text"
+                  id="country"
+                  name="country"
+                  placeholder="Enter country"
+                  value={userInput.country}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label htmlFor="year" className="block font-medium">
+                  Year: <span className="text-red-500">*</span>
+                </label>
+                <input
+                  required
+                  type="number"
+                  id="year"
+                  name="year"
+                  placeholder="Enter year"
+                  value={userInput.year}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label htmlFor="sessionName" className="block font-medium">
+                  Session Type: <span className="text-red-500">*</span>
+                </label>
+                <select
+                  required
+                  id="sessionName"
+                  name="sessionName"
+                  value={userInput.sessionName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select a session</option>
+                  {sessionOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div>
                 <label htmlFor="location" className="block font-medium">
                   Location:
@@ -103,55 +155,36 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                 />
               </div>
               <div>
-                <label htmlFor="country" className="block font-medium">
-                  Country:
+                <label htmlFor="driverName" className="block font-medium">
+                  Driver Name:
                 </label>
                 <input
                   type="text"
-                  id="country"
-                  name="country"
-                  placeholder="Enter country"
-                  value={userInput.country}
+                  id="driverName"
+                  name="driverName"
+                  placeholder="Enter driver name"
+                  value={userInput.driverName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label htmlFor="year" className="block font-medium">
-                  Year:
+                <label htmlFor="driverNumber" className="block font-medium">
+                  Driver Number:
                 </label>
                 <input
                   type="text"
-                  id="year"
-                  name="year"
-                  placeholder="Enter year"
-                  value={userInput.year}
+                  id="driverNumber"
+                  name="driverNumber"
+                  placeholder="Enter driver number"
+                  value={userInput.driverNumber}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-              </div>
-              <div>
-                <label htmlFor="sessionName" className="block font-medium">
-                  Session Name:
-                </label>
-                <select
-                  id="sessionName"
-                  name="sessionName"
-                  value={userInput.sessionName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select a session</option>
-                  {sessionOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors col-span-3"
               >
                 Enter
               </button>
