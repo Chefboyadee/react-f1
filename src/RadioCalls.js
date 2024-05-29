@@ -92,10 +92,13 @@ function ApiRadio({ radioSessionKey, userInfo}) {
 
   const RadioMessage = ({ radio, index }) => {
     const audioRef = useRef(null);
+    const driver = drivers.find(driver => driver.driver_number === radio.driver_number);
 
     return (
       <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto mb-4">
-        <p className="text-gray-600 font-semibold">Driver Number: {radio.driver_number}</p>
+        <p className="text-gray-600 font-semibold">
+          Driver: {driver ? driver.full_name : 'Unknown'} (Number: {radio.driver_number})
+        </p>
         <p className="text-gray-600 font-semibold mb-4">Date: {formatDate(radio.date)}</p>
         <audio ref={audioRef} controls className="w-full">
           <source src={radio.recording_url} type="audio/mpeg" />
