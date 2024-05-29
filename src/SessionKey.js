@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function ApiSession( {onSessionKeyReceived} ){
+function ApiSession( {onSessionKeyReceived, getUserInfo} ){
 
     const [apiResponse, setApiResponse] = useState([]);
 
@@ -17,13 +17,13 @@ function ApiSession( {onSessionKeyReceived} ){
 
     return(
         <>
-             <Form apiResponse={apiResponse} onSessionKeyReceived={onSessionKeyReceived}/>
+             <Form apiResponse={apiResponse} onSessionKeyReceived={onSessionKeyReceived} getUserInfo={getUserInfo}/>
         </>
     )
    
 }
 
-function Form({apiResponse, onSessionKeyReceived}){
+function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
 
     const [sessionKey, setSessionKey] = useState([]);
 
@@ -74,6 +74,7 @@ function Form({apiResponse, onSessionKeyReceived}){
           if (matchedSession) {
             setSessionKey(matchedSession.session_key);
             onSessionKeyReceived(matchedSession.session_key);
+            getUserInfo(userInput);
           } else {
             console.log('No matching session found');
           }
@@ -160,11 +161,11 @@ function Form({apiResponse, onSessionKeyReceived}){
       );
 }
 
-export default function SessionKey( {onSessionKeyReceived} ){
+export default function SessionKey( {onSessionKeyReceived, getUserInfo} ){
    
     return(
         <>
-            <ApiSession onSessionKeyReceived={onSessionKeyReceived}/>
+            <ApiSession onSessionKeyReceived={onSessionKeyReceived} getUserInfo={getUserInfo}/>
         </>
     )
 }
