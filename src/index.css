@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  background: #dfcaae;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -16,17 +17,6 @@ code {
     monospace;
 }
 
-.card-container {
-  transition: transform 0.2s ease-in-out;
-}
-
-.card-container:hover {
-  transform: rotateX(10deg) rotateY(-10deg);
-}
-
-.card-container:hover::before {
-  transform: scale(1.05);
-}
 
 @layer utilities {
   .circle-background {
