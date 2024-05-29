@@ -1,25 +1,21 @@
 import { useState } from "react";
 import SessionKey from "./SessionKey";
 
-export default function GetSessionKey( {getChildSessionKey} ){
-
+export default function GetSessionKey({ onSessionKeyReceived }) {
     const [sessionKey, setSessionKey] = useState([]);
 
     const handleSessionKeyReceived = (key) => {
         setSessionKey(key);
-        console.log("Child Component received from parent SessionKey!")
+        console.log("Child Component received from parent SessionKey!");
+        // Call the onSessionKeyReceived callback with the key
+        onSessionKeyReceived(key);
+        console.log("Handshake complete!");
     };
 
-    if(sessionKey){
-        getChildSessionKey(sessionKey);
-        console.log("Handshake complete!");
-    } else {
-        console.log("Child component not passed.")
-    }
-    return(
+    return (
         <>
-        <SessionKey onSessionKeyReceived={handleSessionKeyReceived}/>
-        {/* <h1> Session Key: {sessionKey}</h1> */}
+            <SessionKey onSessionKeyReceived={handleSessionKeyReceived} />
+            {/* <h1> Session Key: {sessionKey}</h1> */}
         </>
     );
 }
