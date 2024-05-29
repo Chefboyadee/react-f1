@@ -133,7 +133,7 @@ export default function RadioCalls() {
 
   return (
     <>
-    <h1 className='mt-24 -mb-24' > Formula One - Teams' Radio Messages </h1>
+    <h1 className='mt-32 -mb-40 text-center font-mono font-bold text-4xl'> Formula One - Teams' Radio Messages </h1>
     <div className="container mx-auto px-4 py-8">
       <GetSessionKey onSessionKeyReceived={setRadioSessionKey} getUserInfo={setUserInfo} />
 

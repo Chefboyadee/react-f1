@@ -86,11 +86,11 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
       };
 
       return (
-        <div className="flex justify-center items-center h-screen">
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-6">Please enter the required details</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
-              <div>
+        <div className="flex justify-center items-center min-h-screen mt-40 md:mt-8">
+          <div className="bg-red-200 p-4 md:p-8 rounded-lg shadow-2xl w-full max-w-4xl">
+            <h2 className="text-lg md:text-2xl text-center font-bold mb-4 md:mb-6">Search for team radios using the parameters below:</h2>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-1">
                 <label htmlFor="country" className="block font-medium">
                   Country: <span className="text-red-500">*</span>
                 </label>
@@ -105,7 +105,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
+              <div className="md:col-span-1">
                 <label htmlFor="year" className="block font-medium">
                   Year: <span className="text-red-500">*</span>
                 </label>
@@ -120,7 +120,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
+              <div className="md:col-span-1">
                 <label htmlFor="sessionName" className="block font-medium">
                   Session Type: <span className="text-red-500">*</span>
                 </label>
@@ -140,7 +140,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                   ))}
                 </select>
               </div>
-              <div>
+              <div className="md:col-span-1">
                 <label htmlFor="location" className="block font-medium">
                   Location:
                 </label>
@@ -154,7 +154,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
+              <div className="md:col-span-1">
                 <label htmlFor="driverName" className="block font-medium">
                   Driver Name:
                 </label>
@@ -168,7 +168,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
+              <div className="md:col-span-1">
                 <label htmlFor="driverNumber" className="block font-medium">
                   Driver Number:
                 </label>
@@ -184,7 +184,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors col-span-3"
+                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors md:col-span-3"
               >
                 Enter
               </button>
@@ -192,6 +192,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
           </div>
         </div>
       );
+      
       
       
 }
