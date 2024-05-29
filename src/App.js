@@ -12,7 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage/>} />
         <Route path="drivers" element={<DriverApi/>} />
-        <Route path="/radio" elemt={<RadioCalls/>} />
+        <Route path="radio" element={<RadioCalls/>} />
       </Routes>
     </BrowserRouter>
     </>
