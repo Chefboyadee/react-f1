@@ -27,3 +27,75 @@ code {
 .card-container:hover::before {
   transform: scale(1.05);
 }
+
+@layer utilities {
+  .circle-background {
+    background: #ffcae5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .circle-background::before {
+    content: '';
+    position: absolute;
+    top: -75%; /* Adjusted */
+    left: -75%; /* Adjusted */
+    width: 250%; /* Increased */
+    height: 250%; /* Increased */
+    background: radial-gradient(circle, #ffd700 20%, transparent 20%),
+      radial-gradient(circle, #181515 30%, transparent 30%),
+      radial-gradient(circle, #ff3333 40%, transparent 40%);
+    background-size: 100px 100px;
+    background-position: 0 0, 150px 80px, 80px 0;
+    animation: circleAnimation 200s linear infinite;
+  }
+
+  @keyframes circleAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 20px rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-pulse-custom {
+  animation: pulse 1.5s infinite;
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(10);
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active::after {
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 1;
+  transition: 0s;
+}

@@ -1,16 +1,20 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import DriverApi from './DriverApi.js'
-import SessionKey from './SessionKey.js';
 import RadioCalls from './RadioCalls.js';
+import LandingPage from './LandingPage.js';
+
 
 export default function App() {
   return (
-   <>
-    <h1> F1 App </h1>
-    {/* <DriverApi/> */}
-    {/* <SessionKey/> */}
-    <RadioCalls/>
-   </>
-  );
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage/>} />
+        <Route path="drivers" element={<DriverApi/>} />
+        <Route path="radio" elemt={<RadioCalls/>} />
+      </Routes>
+    </BrowserRouter>
+    </>
+  )
 }
-
-
