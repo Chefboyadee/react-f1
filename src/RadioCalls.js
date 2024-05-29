@@ -2,32 +2,65 @@ import { useState, useEffect, useRef } from 'react';
 import GetSessionKey from './GetSessionKey';
 import axios from 'axios';
 
-function ApiRadio({ radioSessionKey, userInfo }) {
+function ApiRadio({ radioSessionKey, userInfo}) {
   const sessionKey = radioSessionKey;
   const [radios, setRadios] = useState([]);
   const audioRef = useRef(null);
   const { driverNumber } = userInfo;
+  const [drivers, setDrivers] = useState([]);
+
+  
+    useEffect(() => {
+      axios.get(`https://api.openf1.org/v1/drivers?session_key=latest`)
+      .then(response => {
+          setDrivers(response.data);
+      })
+      .catch(error => {
+          console.error(error);
+      });
+  }, []);
 
   useEffect(() => {
-      if (radioSessionKey) {
-          const apiUrl = driverNumber
-              ? `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}&driver_number=${driverNumber}`
-              : `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}`;
-
-          axios
-              .get(apiUrl)
-              .then((response) => {
-                  setRadios(response.data);
-                  console.log(response);
-                  console.log('Session key', radioSessionKey);
-              })
-              .catch((error) => {
-                  console.error(error);
-              });
-      } else {
-          setRadios([]);
-      }
-  }, [radioSessionKey, driverNumber]);
+    if (radioSessionKey) {
+      const fetchRadioData = async () => {
+        let apiUrl;
+  
+        if (driverNumber) {
+          // If driverNumber is provided, use it directly
+          apiUrl = `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}&driver_number=${driverNumber}`;
+        } else if (userInfo.driverName) {
+          // If driverName is provided but not driverNumber, try to find the driverNumber from the drivers data
+          const matchedDriver = drivers.find(
+            (driver) =>
+              driver.full_name.toLowerCase() === userInfo.driverName.toLowerCase()
+          );
+  
+          if (matchedDriver) {
+            apiUrl = `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}&driver_number=${matchedDriver.driver_number}`;
+          } else {
+            // If no matching driver is found, fallback to the default API URL
+            apiUrl = `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}`;
+          }
+        } else {
+          // If neither driverNumber nor driverName is provided, use the default API URL
+          apiUrl = `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}`;
+        }
+  
+        try {
+          const response = await axios.get(apiUrl);
+          setRadios(response.data);
+          console.log(response);
+          console.log('Session key', radioSessionKey);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchRadioData();
+    } else {
+      setRadios([]);
+    }
+  }, [radioSessionKey, driverNumber, userInfo.driverName, drivers]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
