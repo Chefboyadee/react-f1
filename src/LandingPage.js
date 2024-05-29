@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import f1logo from './photos/F1 Formula 1.svg';
 import './index.css';
@@ -14,7 +14,9 @@ export default function LandingPage(){
               <div className="relative">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center hover:animate-pulse-custom">
+                  <Link to="/">
                     <img src={f1logo} alt="Logo" className="w-40 h-40"/>
+                  </Link>   
                   </div>
                 </div>
               </div>
