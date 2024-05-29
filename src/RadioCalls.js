@@ -2,27 +2,32 @@ import { useState, useEffect, useRef } from 'react';
 import GetSessionKey from './GetSessionKey';
 import axios from 'axios';
 
-function ApiRadio({ radioSessionKey }) {
-    const sessionKey = radioSessionKey;
-    const [radios, setRadios] = useState([]);
-    const audioRef = useRef(null);
+function ApiRadio({ radioSessionKey, userInfo }) {
+  const sessionKey = radioSessionKey;
+  const [radios, setRadios] = useState([]);
+  const audioRef = useRef(null);
+  const { driverNumber } = userInfo;
 
-    useEffect(() => {
-    if (radioSessionKey) {
-        axios
-        .get(`https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}`)
-        .then((response) => {
-            setRadios(response.data);
-            console.log(response);
-            console.log('Session key', radioSessionKey);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    } else {
-        setRadios([]);
-    }
-    }, [radioSessionKey]);
+  useEffect(() => {
+      if (radioSessionKey) {
+          const apiUrl = driverNumber
+              ? `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}&driver_number=${driverNumber}`
+              : `https://api.openf1.org/v1/team_radio?session_key=${radioSessionKey}`;
+
+          axios
+              .get(apiUrl)
+              .then((response) => {
+                  setRadios(response.data);
+                  console.log(response);
+                  console.log('Session key', radioSessionKey);
+              })
+              .catch((error) => {
+                  console.error(error);
+              });
+      } else {
+          setRadios([]);
+      }
+  }, [radioSessionKey, driverNumber]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -100,7 +105,7 @@ export default function RadioCalls() {
         Showing radio messages for the {userInfo.sessionName} session in {userInfo.country} for the weekend's {userInfo.location} Grand Prix in the season {userInfo.year}!
       </h1>
       
-      <ApiRadio radioSessionKey={radioSessionKey} />
+      <ApiRadio radioSessionKey={radioSessionKey} userInfo={userInfo}/>
     </div>
     </>
     
