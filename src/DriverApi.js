@@ -60,7 +60,7 @@ export default function DriverApi(){
                                 <div className="max-w-xs">
                                     <img className="w-full mr-4" src={driver.headshot_url} alt={`${driver.full_name} headshot`} />
                                     <div className="px-6 py-4">
-                                        <div className="font-bold font-mono text-lg mb-2">{driver.full_name} ({driver.name_acronym})</div>
+                                        <div className="font-bold font-mono text-md mb-2">{driver.full_name} ({driver.name_acronym})</div>
                                         <p className="text-gray-950	 font-mono text-lg font-bold">Driver Number: {driver.driver_number}</p>
                                         <p className="text-fuchsia-900 font-mono font-semibold">Country: {driver.country_code}</p>
                                     </div>
