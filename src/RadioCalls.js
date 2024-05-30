@@ -136,11 +136,6 @@ export default function RadioCalls() {
     <h1 className='mt-32 -mb-40 text-center font-mono font-bold text-4xl'> Formula One - Teams' Radio Messages </h1>
     <div className="container mx-auto px-4 py-8">
       <GetSessionKey onSessionKeyReceived={setRadioSessionKey} getUserInfo={setUserInfo} />
-
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Showing radio messages for the {userInfo.sessionName} session in {userInfo.country} for the weekend's {userInfo.location} Grand Prix in the season {userInfo.year}!
-      </h1>
-      
       <ApiRadio radioSessionKey={radioSessionKey} userInfo={userInfo}/>
     </div>
     </>

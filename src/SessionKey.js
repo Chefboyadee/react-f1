@@ -86,7 +86,7 @@ function Form({apiResponse, onSessionKeyReceived, getUserInfo}){
       };
 
       return (
-        <div className="flex justify-center items-center min-h-screen mt-40 md:mt-8">
+        <div className="flex justify-center items-center min-h-screen mt-40 md:mt-8 mb-8 md:-mb-24">
           <div className="bg-red-200 p-4 md:p-8 rounded-lg shadow-2xl w-full max-w-4xl">
             <h2 className="text-lg md:text-2xl text-center font-bold mb-4 md:mb-6">Search for team radios using the parameters below:</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
